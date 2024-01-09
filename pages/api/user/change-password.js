@@ -1,12 +1,15 @@
 import { hashPassword } from "@/lib/auth";
 import { getSession } from "next-auth/react";
+import { getServerSession } from "next-auth/next";
+import { AuthOptions } from "../auth/[...nextauth]";
 
 export default async function handler(req, res) {
   if (req.method !== "PATCH") {
     return;
   }
 
-  const session = await getSession({ req: req });
+  const session = await getServerSession(req,res,AuthOptions)
+  // const session = await getSession({ req: req });
 
   console.log("session", session);
 
